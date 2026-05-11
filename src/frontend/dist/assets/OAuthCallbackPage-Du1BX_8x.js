@@ -1,29 +1,48 @@
-import { o as useNavigate, r as reactExports, j as jsxRuntimeExports, S as Skeleton, B as Button } from "./index-DNKqcXcV.js";
-import { c as useCompleteXOAuth, S as SiX } from "./useXConnection-DzKPq9bk.js";
-import { C as CircleCheck } from "./circle-check-BzY5oJ9I.js";
-import { C as CircleX } from "./circle-x-B9n09u7C.js";
+import { o as useNavigate, r as reactExports, j as jsxRuntimeExports, S as Skeleton, B as Button } from "./index-DXWA2vRi.js";
+import { c as useCompleteXOAuth, S as SiX } from "./useXConnection-D7Lnas1m.js";
+import { C as CircleCheck } from "./circle-check-1qbBJyYY.js";
+import { C as CircleX } from "./circle-x-DbqPQawS.js";
 function OAuthCallbackPage() {
-  const completeOAuth = useCompleteXOAuth();
+  const { isActorReady, mutate } = useCompleteXOAuth();
   const navigate = useNavigate();
   const [status, setStatus] = reactExports.useState(
     "loading"
   );
   const [errorMsg, setErrorMsg] = reactExports.useState("");
   const completed = reactExports.useRef(false);
-  const mutateRef = reactExports.useRef(completeOAuth.mutate);
+  const mutateRef = reactExports.useRef(mutate);
   const navigateRef = reactExports.useRef(navigate);
   reactExports.useEffect(() => {
-    mutateRef.current = completeOAuth.mutate;
+    mutateRef.current = mutate;
   });
   reactExports.useEffect(() => {
     navigateRef.current = navigate;
   });
+  const paramsRef = reactExports.useRef(() => {
+    const p = new URLSearchParams(window.location.search);
+    return { code: p.get("code"), error: p.get("error") };
+  });
+  const timeoutRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
-    if (completed.current) return;
+    timeoutRef.current = setTimeout(() => {
+      if (!completed.current) {
+        completed.current = true;
+        setStatus("error");
+        setErrorMsg("Actor not available — please try again.");
+      }
+    }, 15e3);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+  reactExports.useEffect(() => {
+    if (!isActorReady || completed.current) return;
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
     completed.current = true;
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    const error = params.get("error");
+    const { code, error } = paramsRef.current();
     if (error) {
       setStatus("error");
       setErrorMsg("Authorization was denied or cancelled.");
@@ -50,7 +69,7 @@ function OAuthCallbackPage() {
         }
       }
     );
-  }, []);
+  }, [isActorReady]);
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
     {
@@ -60,7 +79,8 @@ function OAuthCallbackPage() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-3xl bg-muted flex items-center justify-center mx-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SiX, { className: "w-8 h-8 text-foreground" }) }),
         status === "loading" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", "data-ocid": "oauth_callback.loading_state", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-6 w-48 mx-auto rounded-full" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-4 w-64 mx-auto rounded-full" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-4 w-64 mx-auto rounded-full" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground animate-pulse", children: "Connecting to X…" })
         ] }),
         status === "success" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", "data-ocid": "oauth_callback.success_state", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, { className: "w-8 h-8 text-accent mx-auto" }),

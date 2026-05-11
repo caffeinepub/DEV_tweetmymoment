@@ -32,10 +32,10 @@ export function useStartXOAuth() {
 }
 
 export function useCompleteXOAuth() {
-  const { actor } = useActor(createActor);
+  const { actor, isFetching } = useActor(createActor);
   const queryClient = useQueryClient();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async ({
       code,
       redirectUri,
@@ -47,6 +47,8 @@ export function useCompleteXOAuth() {
       queryClient.invalidateQueries({ queryKey: ["isMyXConnected"] });
     },
   });
+
+  return { ...mutation, isActorReady: !!actor && !isFetching };
 }
 
 export function useDisconnectX() {

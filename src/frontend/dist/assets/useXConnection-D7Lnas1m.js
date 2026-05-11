@@ -1,5 +1,5 @@
-import { p as React, f as useActor, q as useInternetIdentity, k as useQuery, l as useQueryClient, g as createActor } from "./index-DNKqcXcV.js";
-import { u as useMutation } from "./circle-check-BzY5oJ9I.js";
+import { p as React, f as useActor, q as useInternetIdentity, k as useQuery, l as useQueryClient, g as createActor } from "./index-DXWA2vRi.js";
+import { u as useMutation } from "./circle-check-1qbBJyYY.js";
 var DefaultContext = {
   color: void 0,
   size: void 0,
@@ -139,9 +139,9 @@ function useStartXOAuth() {
   });
 }
 function useCompleteXOAuth() {
-  const { actor } = useActor(createActor);
+  const { actor, isFetching } = useActor(createActor);
   const queryClient = useQueryClient();
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async ({
       code,
       redirectUri
@@ -153,6 +153,7 @@ function useCompleteXOAuth() {
       queryClient.invalidateQueries({ queryKey: ["isMyXConnected"] });
     }
   });
+  return { ...mutation, isActorReady: !!actor && !isFetching };
 }
 function useDisconnectX() {
   const { actor } = useActor(createActor);

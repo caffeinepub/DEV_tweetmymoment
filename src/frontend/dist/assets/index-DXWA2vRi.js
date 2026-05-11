@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/EventsPage-CVFwHIJY.js","assets/useXConnection-DzKPq9bk.js","assets/circle-check-BzY5oJ9I.js","assets/badge-Rta-zzAV.js","assets/AdminPage-CdKBo0oC.js","assets/circle-x-B9n09u7C.js","assets/OAuthCallbackPage-y7yCdG0j.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/EventsPage-CQpV4CIf.js","assets/useXConnection-D7Lnas1m.js","assets/circle-check-1qbBJyYY.js","assets/badge-BkOGAB9i.js","assets/AdminPage-fv6wPztC.js","assets/circle-x-DbqPQawS.js","assets/OAuthCallbackPage-Du1BX_8x.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -36290,9 +36290,9 @@ function LoginPage() {
     }
   );
 }
-const EventsPage = reactExports.lazy(() => __vitePreload(() => import("./EventsPage-CVFwHIJY.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
-const AdminPage = reactExports.lazy(() => __vitePreload(() => import("./AdminPage-CdKBo0oC.js"), true ? __vite__mapDeps([4,3,2,5]) : void 0));
-const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallbackPage-y7yCdG0j.js"), true ? __vite__mapDeps([6,1,2,5]) : void 0));
+const EventsPage = reactExports.lazy(() => __vitePreload(() => import("./EventsPage-CQpV4CIf.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
+const AdminPage = reactExports.lazy(() => __vitePreload(() => import("./AdminPage-fv6wPztC.js"), true ? __vite__mapDeps([4,3,2,5]) : void 0));
+const OAuthCallbackPage = reactExports.lazy(() => __vitePreload(() => import("./OAuthCallbackPage-Du1BX_8x.js"), true ? __vite__mapDeps([6,1,2,5]) : void 0));
 function AuthGuard({ children }) {
   const { isAuthenticated, isInitializing } = useInternetIdentity();
   if (isInitializing) {
