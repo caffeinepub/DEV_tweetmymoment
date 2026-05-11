@@ -1,0 +1,59 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type PostRequest = 
+ record {
+   customText: opt text;
+   event: EventKind;
+ };
+type EventKind = 
+ variant {
+   Birthday;
+   Graduation;
+   Marriage;
+   NewBaby;
+   NewJob;
+   Other;
+   Promotion;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  completeXOAuth: (code: text, redirectUri: text) -> ();
+  disconnectMyX: () -> ();
+  getCallerUserRole: () -> (UserRole) query;
+  isCallerAdmin: () -> (bool) query;
+  isMyXConnected: () -> (bool) query;
+  isXClientIdConfigured: () -> (bool) query;
+  postEventTweet: (req: PostRequest) -> (text);
+  setXClientId: (id: text) -> ();
+  startXOAuth: (redirectUri: text) -> (text);
+  xPostTransform: (input: TransformationInput) ->
+   (TransformationOutput) query;
+  xTransform: (input: TransformationInput) -> (TransformationOutput) query;
+}

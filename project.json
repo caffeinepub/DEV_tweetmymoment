@@ -1,0 +1,24 @@
+{
+  "overview": "Tweet special life events from your own Twitter/X account. Log in with Internet Identity, connect your Twitter/X account via OAuth, then tap an event button (Marriage, Promotion, New Job, New Baby, Birthday, Graduation, or custom) to compose and post a tweet with a preview before it goes live.",
+  "features": [
+    "Internet Identity login with first-user admin promotion",
+    "Admin settings page for Twitter/X Client ID configuration",
+    "Per-user OAuth 2.0 PKCE Twitter/X account connection",
+    "Event palette: Marriage, Promotion, New Job, New Baby, Birthday, Graduation, Other",
+    "Tweet preview modal with character count before posting",
+    "Success feedback with auto-return to event buttons",
+    "Responsive mobile and desktop layout"
+  ],
+  "category": "productivity",
+  "tags": [
+    "twitter",
+    "x",
+    "oauth",
+    "pkce",
+    "events",
+    "social",
+    "internet-identity",
+    "tweet"
+  ],
+  "last_updated": "2026-05-11T10:59:23.899Z"
+}
